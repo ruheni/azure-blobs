@@ -1,21 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Montserrat"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+		/>
+		<script
+			defer
+			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+			crossorigin="anonymous"
+		></script>
 		<title>Azure Blobs</title>
+		<style media="screen">
+			.grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-gap: 20px;
+				padding-top: 20px;
+			}
+
+			body {
+				/* font-family: 'Montserrat', sans-serif; */
+				font-weight: 700;
+			}
+
+			.soundClips {
+				padding: 30px;
+			}
+
+			.button {
+				margin-right: 10px;
+			}
+		</style>
 	</head>
+
 	<body>
-		<button id="create-button">Create Container</button>
+		<div class="container grid row">
+			<button class="btn blue darken-1 btn-large record">
+				Record <i class="fas fa-microphone"></i>
+			</button>
 
-		<input type="file" id="fileinput" />
-		<button id="upload-button">Upload</button>
+			<button class="btn blue darken-1 btn-large stop">
+				Stop <i class="fas fa-stop-circle"></i>
+			</button>
+		</div>
 
-		<button id="list-button">List</button>
+		<div class="sound-clips container"></div>
 
-		<button id="delete-button">Delete</button>
-		<ul id="blobs"></ul>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="app.js"></script>
 		<script
 			src="scripts/azure-storage.blob.min.js"
 			charset="utf-8"
