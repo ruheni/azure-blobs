@@ -22,6 +22,7 @@ const createContainer = () => {
         });
     });
 };
+createContainer();
 
 // Upload a blob file
 const uploadBlob = () => {
@@ -40,7 +41,8 @@ const uploadBlob = () => {
 };
 
 // List Blobs
-const listBlob = () => {
+// eslint-disable-next-line no-unused-vars
+const listBlobs = () => {
     document.getElementById('list-button').addEventListener('click', () => {
         // const blobs = document.getElementById('blobs');
         blobService.listBlobsSegmented('container', null, (err, results) => {
@@ -56,6 +58,7 @@ const listBlob = () => {
 };
 
 // Delebe Blobs
+// eslint-disable-next-line no-unused-vars
 const deleteBlob = () => {
     document.getElementById('delete-button').addEventListener('click', () => {
         let blobName;
@@ -73,7 +76,9 @@ const record = document.querySelector('.record');
 const stop = document.querySelector('.stop');
 const soundClips = document.querySelector('.sound-clips');
 
+// eslint-disable-next-line no-unused-vars
 const createEl = () => {
+    createContainer();
     const clipName = prompt('Enter name for your audio clip');
 
     const clipContainer = document.createElement('article');
@@ -141,7 +146,31 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 mediaRecorder.onstop = e => {
                     console.log('recorder stopped');
 
-                    createEl();
+                    const clipName = prompt('Enter name for your audio clip');
+
+                    const clipContainer = document.createElement('article');
+                    const clipLabel = document.createElement('p');
+                    const audio = document.createElement('audio');
+                    const deleteButton = document.createElement('button');
+                    const uploadButton = document.createElement('button');
+
+                    clipContainer.classList.add('clip');
+                    audio.setAttribute('controls', '');
+                    uploadButton.textContent = 'Upload';
+                    deleteButton.innerHTML = 'Delete';
+                    clipLabel.innerHTML = clipName;
+
+                    // clipContainer.setAttribute('class', 'row');
+                    uploadButton.setAttribute('id', 'upload-button');
+                    uploadButton.setAttribute('class', 'btn blue darken-1 right-align button');
+                    deleteButton.setAttribute('class', 'btn blue darken-1 right-align button');
+
+                    clipContainer.appendChild(audio);
+                    clipContainer.appendChild(clipLabel);
+                    clipContainer.appendChild(uploadButton);
+                    clipContainer.appendChild(deleteButton);
+                    soundClips.appendChild(clipContainer);
+
                     const blob = new Blob(chunks, {
                         type: 'audio/ogg; codecs=opus',
                     });
