@@ -103,7 +103,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
              * collect audio as recording progresses with
              * on mediaRecorder.ondataavailable event
              */
-            const chunks = [];
+            let chunks = [];
             mediaRecorder.ondataavailable = e => chunks.push(e.data);
 
             // finalize blob for use
