@@ -9,6 +9,7 @@ const blobUri = `https://${account.name}.blob.core.windows.net`;
 const blobService = AzureStorage.Blob.createBlobServiceWithSas(blobUri, account.sas);
 
 // Create container on Azure.
+// eslint-disable-next-line no-unused-vars
 const createContainer = () => {
     document.getElementById('create-button').addEventListener('click', () => {
         blobService.createContainerIfNotExists('container', (err, container) => {
@@ -23,6 +24,7 @@ const createContainer = () => {
 };
 
 // Upload a blob file to Azure
+// eslint-disable-next-line no-unused-vars
 const uploadBlob = () => {
     document.getElementById('upload-button').addEventListener('click', () => {
         /**
@@ -48,6 +50,7 @@ const uploadBlob = () => {
 };
 
 // List blob files in container on Azure
+// eslint-disable-next-line no-unused-vars
 const listBlob = () => {
     document.getElementById('list-button').addEventListener('click', () => {
         // eslint-disable-next-line no-unused-vars
@@ -68,6 +71,7 @@ const listBlob = () => {
 };
 
 // Delete Blob file on Azure
+// eslint-disable-next-line no-unused-vars
 const deleteBlob = () => {
     document.getElementById('delete-button').addEventListener('click', () => {
         let blobName;
