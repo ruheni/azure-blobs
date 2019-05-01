@@ -23,32 +23,6 @@ const createContainer = () => {
     });
 };
 
-// Upload a blob file to Azure
-// eslint-disable-next-line no-unused-vars
-const uploadBlob = () => {
-    document.getElementById('upload-button').addEventListener('click', () => {
-        /**
-         * TODO: change file to fetch specific audio file on browser.
-         */
-        const file = document.getElementById('fileinput').files[0];
-
-        blobService.createBlockFromBrowserFile(
-            'container',
-            (err,
-            file.name,
-            file,
-            (err, result) => {
-                if (err) {
-                    console.log('The following error occured when uploading file: ', err);
-                } else {
-                    console.log(`Upload of ${file.name} successful.`);
-                    alert(`Upload of ${file.name} successful.`);
-                }
-            })
-        );
-    });
-};
-
 // List blob files in container on Azure
 // eslint-disable-next-line no-unused-vars
 const listBlob = () => {
@@ -152,24 +126,61 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 const audioURL = URL.createObjectURL(blob);
                 audio.src = audioURL;
 
-                // delete audio element
+                // delete audio element from web page
                 deleteButton.onclick = e => {
                     const eventTarget = e.target;
                     eventTarget.parentNode.parentNode.removeChild(eventTarget.parentNode);
                 };
 
-                // upload blob
-                uploadButton.onclick = e => {
-                    const eventTarget = e.target;
-                    console.log(eventTarget);
-                    // uploadBlob();
+                // upload blob to Azure
+                uploadButton.onclick = () => {
+                    // Accessing metadata for use in the createBlockFromStream()
+                    console.log(audio);
+                    console.log(blob);
+                    console.log(audio.src);
+
+                /**
+                 * createBlockBlobFromStream(container, blob, (Stream), streamLength [, options], callback)
+                 * Uploads a block blob from a stream. If the blob already exists on the service, it will be overwritten.
+                 * To avoid overwriting and instead throw an error if the blob exists,
+                 * please pass in an accessConditions parameter in the options object
+                 */
+                    blobService.createBlockBlobFromStream(
+                        'container',
+                        clipName,
+                        audio.src,
+                        audio.duration,
+                        (err, result) => {
+                            if (err) {
+                                console.log('The following error occured when uploading file: ', err);
+                            } else {
+                                console.log(`Upload of ${clipName} successful.`);
+                            }
+                        }
+                    );
                 };
             };
         },
-        // error callback
+        // error callback when recording audio
         err => console.log(`The following getUserMedia error occured: ${err}`)
     );
 } else {
     console.log('Sorry, getUserMedia not supported on your browser!');
     alert('Sorry, getUserMedia not supported on your browser...');
+}
+
+/**
+ * blockId - string -> the block identifier
+ * container - string -> the container name
+ * blob - string -> the blob name
+ * sourceURL - string - the URL of the source data
+ *      It can point to any Azure Blob of file, that is either public or has SAS attached
+ * sourceRangeStart - int -> the start of the range bytes(inclusive) that has to be taken from the copy source.
+ * sourceRangeEnd - int -> The end of the range of bytes(inclusive) that has to be taken from the copy source.
+ * callback - errorOrResponse -> error will contain information if an error occurs
+ *                             -> response will contain information related to this operation 
+ * ! Work in Progress -- uploadFromURL
+ */
+const uploadFromURL = () => {
+    createBlockFromURL(blockId, container, sourceURL, sourceRangeStart, sourceRangeEnd, callback);
 }
