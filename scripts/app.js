@@ -118,12 +118,14 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 clipContainer.appendChild(deleteButton);
                 soundClips.appendChild(clipContainer);
 
-                const blob = new Blob(chunks, {
-                    type: 'audio/ogg, codecs=opus',
-                });
+                // const blob = new Blob(chunks, {
+                //     type: 'audio/ogg, codecs=opus',
+                // });
+
+                const file = new File(chunks, clipName, { type: 'audio/ogg, codecs=opus', lastModified: Date.now() });
                 // eslint-disable-next-line no-const-assign
                 chunks = [];
-                const audioURL = URL.createObjectURL(blob);
+                const audioURL = URL.createObjectURL(file);
                 audio.src = audioURL;
 
                 // delete audio element from web page
@@ -133,28 +135,23 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 };
 
                 // upload blob to Azure
-                uploadButton.onclick = () => {
-                    // Accessing metadata for use in the createBlockFromStream()
-                    console.log(audio);
-                    console.log(blob);
-                    console.log(audio.src);
-
-                /**
-                 * createBlockBlobFromStream(container, blob, (Stream), streamLength [, options], callback)
-                 * Uploads a block blob from a stream. If the blob already exists on the service, it will be overwritten.
-                 * To avoid overwriting and instead throw an error if the blob exists,
-                 * please pass in an accessConditions parameter in the options object
-                 */
-                    blobService.createBlockBlobFromStream(
+                uploadButton.onclick = e => {
+                    blobService.createBlockBlobFromBrowserFile(
                         'container',
                         clipName,
-                        audio.src,
-                        audio.duration,
+                        file,
+                        // eslint-disable-next-line no-unused-vars
                         (err, result) => {
                             if (err) {
                                 console.log('The following error occured when uploading file: ', err);
+                                alert('An error occured during upload. Try again...');
                             } else {
                                 console.log(`Upload of ${clipName} successful.`);
+                                // eslint-disable-next-line no-alert
+                                alert(`Upload of ${clipName} successful.`);
+
+                                const eventTarget = e.target;
+                                eventTarget.parentNode.parentNode.removeChild(eventTarget.parentNode);
                             }
                         }
                     );
@@ -167,20 +164,4 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 } else {
     console.log('Sorry, getUserMedia not supported on your browser!');
     alert('Sorry, getUserMedia not supported on your browser...');
-}
-
-/**
- * blockId - string -> the block identifier
- * container - string -> the container name
- * blob - string -> the blob name
- * sourceURL - string - the URL of the source data
- *      It can point to any Azure Blob of file, that is either public or has SAS attached
- * sourceRangeStart - int -> the start of the range bytes(inclusive) that has to be taken from the copy source.
- * sourceRangeEnd - int -> The end of the range of bytes(inclusive) that has to be taken from the copy source.
- * callback - errorOrResponse -> error will contain information if an error occurs
- *                             -> response will contain information related to this operation 
- * ! Work in Progress -- uploadFromURL
- */
-const uploadFromURL = () => {
-    createBlockFromURL(blockId, container, sourceURL, sourceRangeStart, sourceRangeEnd, callback);
 }
