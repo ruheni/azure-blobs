@@ -6,14 +6,14 @@
 	"scripts": {
 		"start": "http-server",
 		"lint": "eslint scripts/app.js",
-		"lint:fix": "eslint scripts/app.js --fix",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"lint:fix": "eslint scripts/app.js --fix"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"http-server": "^0.11.1"
+		"http-server": "^0.11.1",
+		"uuid": "^3.3.2"
 	},
 	"devDependencies": {
 		"babel-eslint": "^9.0.0",

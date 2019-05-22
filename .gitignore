@@ -120,4 +120,8 @@ typings/
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 .eslintrc
 index-demo.html
-app-demo.js
+imgs/
+app-demo.jsindex-demo.html 
+demo.htmldemo.js 
+demo.html
+demo.js
