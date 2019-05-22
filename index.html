@@ -1,74 +1,195 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link
-			href="https://fonts.googleapis.com/css?family=Montserrat"
-			rel="stylesheet"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-		/>
-		<script
-			defer
-			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
-			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
-			crossorigin="anonymous"
-		></script>
-		<title>Azure Blobs</title>
-		<style media="screen">
-			.grid {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				grid-gap: 20px;
-				padding-top: 20px;
-			}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-			body {
-				/* font-family: 'Montserrat', sans-serif; */
-				font-weight: 700;
-				background-color: #8395a7;
-			}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+      integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+      crossorigin="anonymous"
+    ></script>
+    <title>Azure Blobs</title>
+    <style media="screen">
+      body {
+        background-color: #f1f2f6;
+      }
+      .containers {
+        margin: 10px;
+        /* height: 100vh; */
+      }
+      .text {
+        font-weight: bold;
+        text-align: center;
+      }
+      .soundClips {
+        padding: 30px;
+      }
 
-			.soundClips {
-				padding: 30px;
-			}
+      article {
+        padding-top: 20px;
+      }
+      p {
+        font-size: 1.5rem;
+        margin: 10px;
+        padding: 10px;
+      }
+      #text-here {
+        text-align: center;
+      }
+      .cards {
+        padding-top: 40px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        padding: 20px;
+        display: block;
+        align-items: center;
+        height: 30vh;
+      }
+      @media only screen and (max-width: 620px) {
+        .containers {
+          padding: 20px;
+        }
+      }
+      @media only screen and (max-width: 800px) {
+        .containers {
+          padding: 50px 150px 20px 150px;
+        }
+      }
+      @media only screen and (min-width: 1200px) {
+        .containers {
+          padding: 50px 200px 20px 200px;
+        }
+      }
+      .slides {
+        display: none;
+      }
+      /* Fade animation */
+      .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1s;
+        animation-name: fade;
+        animation-duration: 1s;
+      }
 
-			.button {
-				margin-right: 10px;
-			}
-			p {
-				color: white;
-			}
-			article {
-				padding-top: 20px;
-			}
-		</style>
-	</head>
+      @-webkit-keyframes fade {
+        from {
+          opacity: 0.4;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-	<body>
-		<div class="container grid row">
-			<button class="btn blue darken-1 btn-large record">
-				Record <i class="fas fa-microphone"></i>
-			</button>
+      @keyframes fade {
+        from {
+          opacity: 0.4;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      button:hover {
+        opacity: 0.6;
+        cursor: pointer;
+      }
+      article {
+        padding-top: 20px;
+      }
+      .content {
+        padding: 50px;
+      }
+    </style>
+  </head>
 
-			<button class="btn blue darken-1 btn-large stop">
-				Stop <i class="fas fa-stop-circle"></i>
-			</button>
-			<!-- <button id="create-button" class="btn blue darken-1">
-				<i class="fas fa-plus-square"></i> Container
-			</button> -->
-		</div>
+  <body>
+    <div class="containers">
+      <p id="text-here">
+        Tap the mic button and say the word out loud
+      </p>
+      <div class="cards slides fade">
+        <p class="text">Moja</p>
+      </div>
+      <div class="cards slides fade">
+        <p class="text">Mbili</p>
+      </div>
+      <div class="cards slides fade">
+        <p class="text">Tatu</p>
+      </div>
+      <div class="cards slides fade">
+        <p class="text">Nne</p>
+      </div>
+      <div class="cards slides fade">
+        <p class="text">Tano</p>
+      </div>
+      <div class="cards slides fade">
+        <p class="text">Sita</p>
+      </div>
+      <div class="cards slides fade">
+        <p class="text">Saba</p>
+      </div>
+      <div class="cards slides fade">
+        <p class="text">Nane</p>
+      </div>
+      <div class="cards  slides fade">
+        <p class="text">Tisa</p>
+      </div>
+      <div class="cards slides fade">
+        <p class="text">Kumi</p>
+      </div>
 
-		<div class="sound-clips container"></div>
+      <div class="content">
+        <div class="center">
+          <button class="btn-floating btn-large record">
+            <i class="fas fa-microphone"></i>
+          </button>
+          <span></span>
+          <button class="btn-floating btn-large stop">
+            <i class="fas fa-stop-circle"></i>
+          </button>
+        </div>
+      </div>
+    </div>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		<script
-			src="scripts/azure-storage.blob.min.js"
-			charset="utf-8"
-		></script>
-		<script src="/scripts/app.js"></script>
-	</body>
+    <div class="sound-clips container"></div>
+    <script>
+      let slideIndex = 1;
+      let maxSlideIndex = 10;
+
+      // Next/ Previous controls
+      function plusSlides(n) {
+        showSlides((slideIndex += n));
+      }
+
+      // Thumbnail image controls
+      function currentSlide(n) {
+        showSlides((slideIndex = n));
+      }
+
+      function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("slides");
+        if (n > maxSlideIndex) {
+          alert("Thank you for your participation in this...");
+          slides[slideIndex - 1].style.display = "none";
+        }
+        if (n <= 1) {
+          alert("Thank you for your participation in this...");
+        }
+        for (i = 0; i < maxSlideIndex; i++) {
+          slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+      }
+      showSlides();
+    </script>
+    <script src="scripts/azure-storage.blob.min.js" charset="utf-8"></script>
+    <script src="scripts/app.js"></script>
+  </body>
 </html>
