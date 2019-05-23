@@ -13,7 +13,7 @@ const blobService = AzureStorage.Blob.createBlobServiceWithSas(
 const record = document.querySelector(".record");
 const stop = document.querySelector(".stop");
 // const soundClips = document.querySelector(".soundClips");
-let text = document.getElementById("text-here");
+// let text = document.getElementById("text-here");
 
 // list of container names in Blob storage account
 const containers = [
@@ -91,12 +91,6 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       record.style.color = "";
     };
 
-    /**
-     * ? naming file => Math.trunc(Date.now() * Math.random())
-     * ?converting to file
-     *
-     */
-
     mediaRecorder.onstop = () => {
       let num = Math.trunc(Math.random() * Date.now());
 
@@ -108,9 +102,8 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 
       chunks = [];
       files.push(file);
-      console.log(filesForUpload);
 
-      plusSlides(1);
+      setTimeout(1500, plusSlides(1));
       if (files.length === 10) {
         upload();
       }
