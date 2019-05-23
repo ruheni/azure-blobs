@@ -10,15 +10,12 @@ const blobService = AzureStorage.Blob.createBlobServiceWithSas(
   account.sas
 );
 
-/**
- * TODO: upload audio to containers
- */
-
 const record = document.querySelector(".record");
 const stop = document.querySelector(".stop");
-const soundClips = document.querySelector(".soundClips");
+// const soundClips = document.querySelector(".soundClips");
 let text = document.getElementById("text-here");
 
+// list of container names in Blob storage account
 const containers = [
   "one",
   "two",
@@ -32,16 +29,37 @@ const containers = [
   "ten"
 ];
 
-function uploadBlob(container, files) {
-  blobService.createBlockFromBrowserFile(
-    container[i],
-    filesForUpload[i].name,
-    filesForUpload[i],
+// empty array to store recorded files
+let files = [];
+
+let upload = () => {
+  const options = {};
+  blobContainers.forEach(blobContainer => {
+    files.forEach(file => {
+      if (blobContainers.indexOf(blobContainer) === files.indexOf(file)) {
+        options = { blobContainer, file };
+        uploadBlob(options);
+        options = {};
+        console.log({ blobContainer, file });
+      }
+    });
+  });
+};
+
+function uploadBlob(options) {
+  blobService.createBlockBlobFromBrowserFile(
+    options.blobContainer,
+    options.file.name,
+    options.file,
     (err, result) => {
       if (err) {
-        console.log("The following error occured, ", err);
+        console.log(`The following error occured ${err}`);
       } else {
-        console.log(`Upload of ${filesForUpload[i].name}`);
+        console.log(
+          `Upload of ${options.file.name} to container ${
+            options.blobContainer
+          } successful.`
+        );
       }
     }
   );
@@ -73,11 +91,14 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       record.style.color = "";
     };
 
-    // converting to file
-    let filesForUpload = [];
+    /**
+     * ? naming file => Math.trunc(Date.now() * Math.random())
+     * ?converting to file
+     *
+     */
+
     mediaRecorder.onstop = () => {
-      let num = Math.random() * Date.now();
-      num = Math.trunc(num);
+      let num = Math.trunc(Math.random() * Date.now());
 
       const clipName = num;
 
@@ -86,10 +107,13 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       });
 
       chunks = [];
-      filesForUpload.push(file);
+      files.push(file);
       console.log(filesForUpload);
 
       plusSlides(1);
+      if (files.length === 10) {
+        upload();
+      }
     };
   });
 } else {
