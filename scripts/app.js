@@ -1,3 +1,33 @@
+let slideIndex = 1;
+let maxSlideIndex = 10;
+
+// Next/ Previous controls
+function plusSlides(n) {
+  showSlides((slideIndex += n));
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides((slideIndex = n));
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("slides");
+  if (n > maxSlideIndex) {
+    alert("Thank you for your participation in this...");
+    slides[slideIndex - 1].style.display = "none";
+  }
+  if (n <= 1) {
+    alert("Thank you for your participation in this...");
+  }
+  for (i = 0; i < maxSlideIndex; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndex - 1].style.display = "block";
+}
+showSlides();
+
 const account = {
   name: "blobstorageaudio",
   sas:
