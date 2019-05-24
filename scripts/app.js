@@ -15,11 +15,7 @@ function showSlides(n) {
   let i;
   let slides = document.getElementsByClassName("slides");
   if (n > maxSlideIndex) {
-    alert("Thank you for your participation in this...");
     slides[slideIndex - 1].style.display = "none";
-  }
-  if (n <= 1) {
-    alert("Thank you for your participation in this...");
   }
   for (i = 0; i < maxSlideIndex; i++) {
     slides[i].style.display = "none";
@@ -46,7 +42,7 @@ const stop = document.querySelector(".stop");
 // let text = document.getElementById("text-here");
 
 // list of container names in Blob storage account
-const containers = [
+const blobContainers = [
   "one",
   "two",
   "three",
@@ -63,7 +59,7 @@ const containers = [
 let files = [];
 
 let upload = () => {
-  const options = {};
+  let options = {};
   blobContainers.forEach(blobContainer => {
     files.forEach(file => {
       if (blobContainers.indexOf(blobContainer) === files.indexOf(file)) {
