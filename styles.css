@@ -5,6 +5,9 @@ body {
   padding-top: 40px;
   margin: 20px;
   height: 100vh;
+  display: grid;
+  max-width: 500px;
+  margin: 0 auto;
 }
 .text {
   font-size: 1.5rem;
@@ -27,7 +30,6 @@ p {
   text-align: center;
 }
 .cards {
-  /* padding-top: 40px; */
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
@@ -35,12 +37,6 @@ p {
   display: block;
   align-items: center;
   height: 30vh;
-}
-@media only screen and (max-width: 620px) {
-}
-@media only screen and (max-width: 800px) {
-}
-@media only screen and (max-width: 1200px) {
 }
 .slides {
   display: none;
