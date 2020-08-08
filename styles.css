@@ -11,7 +11,6 @@ body {
 }
 .text {
   font-size: 1.5rem;
-
   font-weight: bold;
   text-align: center;
 }
@@ -78,4 +77,24 @@ article {
 }
 button {
   margin: 10px;
+}
+
+ /* Added these pulse animations. You are welcome */
+@keyframes pulse{
+	0%{
+		box-shadow: 0px 0px 5px 0px rgba(196, 247, 225);
+	}
+	65%{
+		box-shadow: 0px 0px 5px 13px rgba(143, 206, 171);
+	}
+	90%{
+		box-shadow: 0px 0px 5px 13px rgba(146, 226, 177);
+	}
+}
+
+.rec{
+	animation-name: pulse;
+	animation-duration: 2.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
 }

@@ -100,6 +100,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       mediaRecorder.start();
       console.log(`${mediaRecorder.state}, recorder started`);
       record.style.color = "red";
+      record.classList.add("rec")
     };
 
     /**
@@ -115,6 +116,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       mediaRecorder.stop();
       console.log(`${mediaRecorder.state}, recorder stopped`);
       record.style.color = "";
+      record.classList.remove("rec")
     };
 
     mediaRecorder.onstop = () => {
